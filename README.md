@@ -5,13 +5,13 @@
   <img src="./kyber.png"/>
 </p>
 
-**KYBER** is an IND-CCA2-secure key encapsulation mechanism (KEM), whose security is based on the hardness of solving the learning-with-errors (LWE) problem over module lattices.  The homepage for CRYSTALS Kyber can be found [here](https://pq-crystals.org/kyber/index.shtml) (some information from this README is pulled directly from their site)
+**KYBER** is an IND-CCA2-secure key encapsulation mechanism (KEM), whose security is based on the hardness of solving the learning-with-errors (LWE) problem over module lattices.  The homepage for CRYSTALS Kyber can be found [here](https://pq-crystals.org/kyber/index.shtml) (some information from this README is pulled directly from their site).
 
-This pure Java implementation is intended for Android applications (compiles with OpenJDK 11 and OpenJDK 13) but can be used for any Java based application.  (Some changes are needed to compile this project using the latest Java versions.)
+This pure Java implementation is intended for Android applications (compiles with OpenJDK 11 and OpenJDK 13) but can be used for any Java based application.  Some changes are needed to compile this project using the latest Java versions.  Of note, the "builds" directory contains a compiled OpenJDK 13.0.2 version of this library and you can find OpenJDK 13 here: https://jdk.java.net/archive/
 
 The initial creation of this code was translated from this Go implementation of [Kyber (version 3)](https://github.com/symbolicsoft/kyber-k2so).  After getting that to work, the code was modified into a JCE (unsigned).  The Diffie-Hellman OpenJDK 11 code was used as a base.
 
-Kyber has three different parameter sets: 512, 768, and 1024.  Kyber-512 aims at security roughly equivalent to AES-128, Kyber-768 aims at security roughly equivalent to AES-192, and Kyber-1024 aims at security roughly equivalent to AES-256 
+Kyber has three different parameter sets: 512, 768, and 1024.  Kyber-512 aims at security roughly equivalent to AES-128, Kyber-768 aims at security roughly equivalent to AES-192, and Kyber-1024 aims at security roughly equivalent to AES-256. 
 
 ## Loading the Kyber JCE
 Because the JAR isn't signed, it will not run with the Oracle JDK.  You can run this with OpenJDK.  You will need to add these two lines to your program:
