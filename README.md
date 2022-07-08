@@ -48,7 +48,7 @@ The initial creation of this code was translated from this Go implementation of 
 Kyber has three different parameter sets: 512, 768, and 1024.  Kyber-512 aims at security roughly equivalent to AES-128, Kyber-768 aims at security roughly equivalent to AES-192, and Kyber-1024 aims at security roughly equivalent to AES-256. 
 
 ## Loading the Kyber JCE
-Because the JAR isn't signed, it will not run with the Oracle JDK.  You can run this with OpenJDK.  You will need to add these two lines to your program:
+**Because the JAR isn't signed, you cannot import it into the Oracle JDK.**  You can however import this into OpenJDK.  You will need to add these two lines to your program:
 
 ```bash
 Security.setProperty("crypto.policy", "unlimited");
