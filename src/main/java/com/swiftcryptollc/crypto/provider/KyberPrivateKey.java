@@ -51,8 +51,6 @@ final class KyberPrivateKey implements PrivateKey, com.swiftcryptollc.crypto.int
     // the private-value length (optional)
     private int l;
 
-    private int Kyber_data[] = {1, 2, 840, 113549, 1, 3, 1};
-
     /**
      * Make a Kyber private key out of a private value <code>x</code>, a prime
      * modulus <code>p</code>, and a base generator <code>g</code>.
@@ -210,7 +208,7 @@ final class KyberPrivateKey implements PrivateKey, com.swiftcryptollc.crypto.int
                 DerOutputStream algid = new DerOutputStream();
 
                 // store OID
-                algid.putOID(new ObjectIdentifier(Kyber_data));
+                algid.putOID(ObjectIdentifier.of(KyberJCE.OID_KYBER));
                 // encode parameters
                 DerOutputStream params = new DerOutputStream();
                 params.putInteger(this.p);
