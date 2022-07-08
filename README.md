@@ -93,7 +93,7 @@ KyberDecrypted kyberDecrypted = (KyberDecrypted) keyAgreement.doPhase(cipherText
 ```
    
 ## DISCLAIMER
-The tests from the [Go](https://github.com/symbolicsoft/kyber-k2so) implementation have also been converted to Java.  The original test files are used as the main test source.  Additional tests include X.509 encoding and decoding, a key agreement, and a massively multi-threaded key agreement test for good measure. The code has not been examined for potential vulnerabilities.
+This library is available under the MIT License. The tests from the [Go](https://github.com/symbolicsoft/kyber-k2so) implementation have been converted to Java.  The original test files are used as the main test source.  Additional tests include X.509 encoding and decoding, a key agreement, and a massively multi-threaded key agreement test for good measure. The tests all pass, however please note that the code has not been examined by a third party for potential vulnerabilities.
 
 ## Further Information
 More details about CRYSTALS and the most secure ways to use it can be found [here](https://pq-crystals.org/index.shtml)
