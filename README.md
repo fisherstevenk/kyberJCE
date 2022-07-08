@@ -7,7 +7,39 @@
 
 **KYBER** is an IND-CCA2-secure key encapsulation mechanism (KEM), whose security is based on the hardness of solving the learning-with-errors (LWE) problem over module lattices.  The homepage for CRYSTALS Kyber can be found [here](https://pq-crystals.org/kyber/index.shtml) (some information from this README is pulled directly from their site).
 
-This pure Java implementation is intended for Android applications (compiles with OpenJDK 11 and OpenJDK 13) but can be used for any Java based application.  Some changes are needed to compile this project using the latest Java versions.  Of note, the "builds" directory contains a compiled OpenJDK 13.0.2 version of this library and you can find OpenJDK 13 here: https://jdk.java.net/archive/
+The initial Java implementation (1.0, Java 13) was intended for Android applications. In order to use it on Android however, you need to include the sun.security.util classes in your final jar.  The Android version of java does not have them available.
+
+Some minor changes were needed for this library to work with Oracle JDK 18.  These changes are in Version 2.0.  In order to use the library in your Java 18 app, you do need modifications to your maven pom (sorry.. no gradle example).  Please note, do not add the "..." to your pom file.  That's just a placeholder instead of adding a full on pom file.
+
+```bash
+<project ...>
+....
+   <properties>
+     <!-- This property must be added -->
+     <argLine>--add-modules java.base --add-opens java.base/sun.security.util=ALL-UNNAMED</argLine>
+     ...
+   </properties>
+   <build>
+     <plugins>
+       <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-compiler-plugin</artifactId>
+         <version>3.10.1</version>
+         <configuration>
+           <source>18</source>
+           <target>18</target>
+           <!-- This section must be added -->
+           <compilerArgs>
+             <arg>--add-exports</arg>
+             <arg>java.base/sun.security.util=ALL-UNNAMED</arg>
+           </compilerArgs>
+         </configuration>
+       </plugin>
+...
+</project>
+```
+
+The "builds" directory contains a compiled OpenJDK 13.0.2 version of this library (get OpenJDK 13 here: https://jdk.java.net/archive/ ) and an Oracle JDK 18 version.
 
 The initial creation of this code was translated from this Go implementation of [Kyber (version 3)](https://github.com/symbolicsoft/kyber-k2so).  After getting that to work, the code was modified into a JCE (unsigned).  The Diffie-Hellman OpenJDK 11 code was used as a base.
 
@@ -59,7 +91,7 @@ KyberDecrypted kyberDecrypted = (KyberDecrypted) keyAgreement.doPhase(cipherText
 ```
    
 ## DISCLAIMER
-This code has *NOT* been reviewed by the Crystals team for any potential issues.  With that said, the tests from the [Go](https://github.com/symbolicsoft/kyber-k2so) implementation have also been converted to Java.  The original test files are used as the main test source.  Additional tests include X.509 encoding and decoding, a key agreement, and a massively multi-threaded key agreement test for good measure. 
+The tests from the [Go](https://github.com/symbolicsoft/kyber-k2so) implementation have also been converted to Java.  The original test files are used as the main test source.  Additional tests include X.509 encoding and decoding, a key agreement, and a massively multi-threaded key agreement test for good measure. The code has not been examined for potential vulnerabilities.
 
 ## Further Information
 More details about CRYSTALS and the most secure ways to use it can be found [here](https://pq-crystals.org/index.shtml)

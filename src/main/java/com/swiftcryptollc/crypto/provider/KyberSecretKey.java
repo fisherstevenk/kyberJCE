@@ -43,8 +43,6 @@ public final class KyberSecretKey implements PublicKey, Serializable {
     // the private-value length (optional)
     private int l;
 
-    private int Kyber_data[] = {1, 2, 840, 113549, 1, 3, 1};
-
     /**
      * Make a Kyber public key out of a public value <code>s</code>, a prime
      * modulus <code>p</code>, and a base generator <code>g</code>.
@@ -182,7 +180,7 @@ public final class KyberSecretKey implements PublicKey, Serializable {
                 DerOutputStream algid = new DerOutputStream();
 
                 // store oid in algid
-                algid.putOID(new ObjectIdentifier(Kyber_data));
+                algid.putOID(ObjectIdentifier.of(KyberJCE.OID_KYBER));
 
                 // encode parameters
                 DerOutputStream params = new DerOutputStream();

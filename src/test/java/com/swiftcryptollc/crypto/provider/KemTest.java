@@ -31,7 +31,7 @@ public class KemTest {
         int fileIndex = 0;
         for (String rsp : rsps) {
             try {
-                InputStream inputStream = ClassLoader.getSystemResourceAsStream("assets/" + rsp);
+                InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("assets/" + rsp);
                 System.out.println("Processing " + rsp);
                 BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
                 String line = null;
@@ -127,6 +127,7 @@ public class KemTest {
                 }
 
             } catch (Exception ex) {
+                ex.printStackTrace();
                 fail("Exception occured during the test! [" + ex.getMessage() + "]");
             }
             /**

@@ -4,6 +4,7 @@ import com.swiftcryptollc.crypto.util.KyberKeyUtil;
 import java.security.KeyPair;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests most of the functionality of the Kyber KEM package
@@ -20,11 +21,12 @@ public class KemThreadTest {
      *
      * @param args
      */
-    public static void main(String[] args) {
+    @Test
+    public void testThreads() {
         int totalErrors = 0;
         List<Thread> testThreads = new ArrayList<>();
-        final int numTestsPer = 1000;
-        final int numThreads = 1000;
+        final int numTestsPer = 100;
+        final int numThreads = 100;
         long testStartTime = System.currentTimeMillis();
         for (int ctr = 0; ctr < numThreads; ++ctr) {
             final int threadNumber = ctr;
