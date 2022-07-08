@@ -9,7 +9,9 @@
 
 The initial Java implementation (1.0, Java 13) was intended for Android applications. In order to use it on Android however, you need to include the sun.security.util classes in your final jar.  The Android version of java does not have them available.
 
-Some minor changes were needed for this library to work with Oracle JDK 18.  These changes are in Version 2.0.  In order to use the library in your Java 18 app, you do need modifications to your maven pom (sorry.. no gradle example).  Please note, do not add the "..." to your pom file.  That's just a placeholder instead of adding a full on pom file.
+Some minor changes were needed for this library to work with Oracle JDK 18.  These changes are in Version 2.0.  In order to use the library in your Java 18 app, you do need modifications to your maven pom (sorry.. no gradle example).
+
+*Please note, do not add the "..." to your pom file.  That's just a placeholder instead of adding a full on pom file.*
 
 ```bash
 <project ...>
