@@ -5,7 +5,7 @@ import java.math.BigInteger;
 /**
  * Helper class for various static byte sizes
  *
- * @author Steven K Fisher <swiftcryptollc@gmail.com>
+ * @author Steven K Fisher <fisherstevenk@gmail.com>
  */
 public final class KyberParams {
 

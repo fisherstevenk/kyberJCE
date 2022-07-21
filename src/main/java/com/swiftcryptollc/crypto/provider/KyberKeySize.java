@@ -2,7 +2,7 @@ package com.swiftcryptollc.crypto.provider;
 
 /**
  *
- * @author Steven K Fisher <swiftcryptollc@gmail.com>
+ * @author Steven K Fisher <fisherstevenk@gmail.com>
  */
 public enum KyberKeySize {
     KEY_512("2"),

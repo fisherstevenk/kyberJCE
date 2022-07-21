@@ -13,7 +13,7 @@ import java.security.spec.KeySpec;
 
 /**
  *
- * @author Steven K Fisher <swiftcryptollc@gmail.com>
+ * @author Steven K Fisher <fisherstevenk@gmail.com>
  */
 public final class KyberKeyUtil {
 

@@ -7,7 +7,7 @@ import java.security.Key;
 /**
  * Helper class for the encrypted shared secret and cipher text
  *
- * @author Steven K Fisher <swiftcryptollc@gmail.com>
+ * @author Steven K Fisher <fisherstevenk@gmail.com>
  */
 public final class KyberEncrypted implements Key {
 

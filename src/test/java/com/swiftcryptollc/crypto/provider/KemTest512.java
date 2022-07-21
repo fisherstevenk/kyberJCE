@@ -8,7 +8,7 @@ import static com.swiftcryptollc.crypto.provider.kyber.KyberParams.KyberSSBytes;
 /**
  * Simple class for holding data for the 512 tests
  *
- * @author Steven K Fisher <swiftcryptollc@gmail.com>
+ * @author Steven K Fisher <fisherstevenk@gmail.com>
  */
 public class KemTest512 {
 

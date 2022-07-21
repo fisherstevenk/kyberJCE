@@ -16,7 +16,7 @@ import java.security.spec.X509EncodedKeySpec;
 /**
  * This class implements the Kyber key factory
  *
- * @author Steven K Fisher <swiftcryptollc@gmail.com>
+ * @author Steven K Fisher <fisherstevenk@gmail.com>
  *
  */
 public final class KyberKeyFactory extends KeyFactorySpi {

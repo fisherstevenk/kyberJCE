@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * Utility class for byte operations
  *
- * @author Steven K Fisher <swiftcryptollc@gmail.com>
+ * @author Steven K Fisher <fisherstevenk@gmail.com>
  */
 public final class ByteOps {
 

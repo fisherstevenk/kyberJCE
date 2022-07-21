@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * Polynomial and Polynomial Vector Utility class
  *
- * @author Steven K Fisher <swiftcryptollc@gmail.com>
+ * @author Steven K Fisher <fisherstevenk@gmail.com>
  */
 public final class Poly {
 

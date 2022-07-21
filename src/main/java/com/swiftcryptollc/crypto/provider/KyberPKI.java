@@ -3,7 +3,7 @@ package com.swiftcryptollc.crypto.provider;
 /**
  * Kyber PKI Helper class
  *
- * @author Steven K Fisher <swiftcryptollc@gmail.com>
+ * @author Steven K Fisher <fisherstevenk@gmail.com>
  */
 final class KyberPKI {
 

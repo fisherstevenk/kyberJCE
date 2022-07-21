@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests most of the functionality of the Kyber KEM package
  *
- * @author Steven K Fisher <swiftcryptollc@gmail.com>
+ * @author Steven K Fisher <fisherstevenk@gmail.com>
  */
 public class KemTest {
 

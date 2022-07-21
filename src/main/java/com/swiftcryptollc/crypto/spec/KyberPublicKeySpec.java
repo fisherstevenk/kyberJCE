@@ -8,7 +8,7 @@ import java.math.BigInteger;
  *
  * Should encrypt the key like KyberPublicKey
  *
- * @author Steven K Fisher <swiftcryptollc@gmail.com>
+ * @author Steven K Fisher <fisherstevenk@gmail.com>
  */
 public final class KyberPublicKeySpec implements java.security.spec.KeySpec {
 
