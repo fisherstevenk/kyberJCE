@@ -27,7 +27,7 @@ final class KyberPKI {
     /**
      * @param privateKey the privateKey to set
      */
-    public void setPrivateKey(KyberPrivateKey privateKey) {
+    protected void setPrivateKey(KyberPrivateKey privateKey) {
         this.privateKey = privateKey;
     }
 
@@ -41,7 +41,7 @@ final class KyberPKI {
     /**
      * @param publicKey the publicKey to set
      */
-    public void setPublicKey(KyberPublicKey publicKey) {
+    protected void setPublicKey(KyberPublicKey publicKey) {
         this.publicKey = publicKey;
     }
 

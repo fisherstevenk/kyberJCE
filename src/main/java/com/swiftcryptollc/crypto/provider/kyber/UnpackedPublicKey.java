@@ -27,7 +27,7 @@ final class UnpackedPublicKey {
     /**
      * @param publicKeyPolyvec the publicKeyPolyvec to set
      */
-    public void setPublicKeyPolyvec(short[][] publicKeyPolyvec) {
+    protected void setPublicKeyPolyvec(short[][] publicKeyPolyvec) {
         this.publicKeyPolyvec = publicKeyPolyvec;
     }
 
@@ -41,7 +41,7 @@ final class UnpackedPublicKey {
     /**
      * @param seed the seed to set
      */
-    public void setSeed(byte[] seed) {
+    protected void setSeed(byte[] seed) {
         this.seed = seed;
     }
 
