@@ -3,7 +3,7 @@ package com.swiftcryptollc.crypto.provider;
 /**
  * Helper class for the Cipher Text
  *
- * @author Steven K Fisher <fisherstevenk@gmail.com>
+ * @author Steven K Fisher <swiftcryptollc@gmail.com>
  */
 public final class KyberVariant {
 

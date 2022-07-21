@@ -4,7 +4,7 @@ import com.swiftcryptollc.crypto.provider.KyberKeySize;
 
 /**
  *
- * @author Steven K Fisher <fisherstevenk@gmail.com>
+ * @author Steven K Fisher <swiftcryptollc@gmail.com>
  */
 public interface KyberPublicKey extends KyberKey, java.security.PublicKey {
 

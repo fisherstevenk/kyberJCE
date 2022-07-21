@@ -22,7 +22,7 @@ import sun.security.util.ObjectIdentifier;
  * A private key in PKCS#8 format for the Diffie-Hellman key agreement
  * algorithm.
  *
- * @author Steven K Fisher <fisherstevenk@gmail.com>
+ * @author Steven K Fisher <swiftcryptollc@gmail.com>
  */
 final class KyberPrivateKey implements PrivateKey, com.swiftcryptollc.crypto.interfaces.KyberPrivateKey, Serializable {
 

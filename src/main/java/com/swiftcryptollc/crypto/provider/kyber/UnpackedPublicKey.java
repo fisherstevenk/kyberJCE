@@ -3,7 +3,7 @@ package com.swiftcryptollc.crypto.provider.kyber;
 /**
  * Helper class for an unpacked public key
  *
- * @author Steven K Fisher <fisherstevenk@gmail.com>
+ * @author Steven K Fisher <swiftcryptollc@gmail.com>
  */
 final class UnpackedPublicKey {
 

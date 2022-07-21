@@ -3,7 +3,7 @@ package com.swiftcryptollc.crypto.provider.kyber;
 /**
  * Number Theoretic Transform (NTT) Helper class
  *
- * @author Steven K Fisher <fisherstevenk@gmail.com>
+ * @author Steven K Fisher <swiftcryptollc@gmail.com>
  */
 public final class Ntt {
 

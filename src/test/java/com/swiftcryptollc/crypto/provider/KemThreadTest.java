@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
  * This 'test' isn't written as an official test since it takes some time to
  * execute
  *
- * @author Steven K Fisher <fisherstevenk@gmail.com>
+ * @author Steven K Fisher <swiftcryptollc@gmail.com>
  */
 public class KemThreadTest {
 

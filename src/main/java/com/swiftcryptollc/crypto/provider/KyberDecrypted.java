@@ -7,7 +7,7 @@ import java.security.Key;
 /**
  * Helper class for the decrypted shared secret and variant
  *
- * @author Steven K Fisher <fisherstevenk@gmail.com>
+ * @author Steven K Fisher <swiftcryptollc@gmail.com>
  */
 public final class KyberDecrypted implements Key {
 

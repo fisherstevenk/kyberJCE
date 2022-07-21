@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the X.509 encoding
  *
- * @author Steven K Fisher <fisherstevenk@gmail.com>
+ * @author Steven K Fisher <swiftcryptollc@gmail.com>
  */
 public class X509Test {
 

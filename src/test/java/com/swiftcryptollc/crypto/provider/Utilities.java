@@ -3,7 +3,7 @@ package com.swiftcryptollc.crypto.provider;
 /**
  * Simply utility class to "pretty print" some arrays for testing purposes
  *
- * @author Steven K Fisher <fisherstevenk@gmail.com>
+ * @author Steven K Fisher <swiftcryptollc@gmail.com>
  */
 public class Utilities {
 

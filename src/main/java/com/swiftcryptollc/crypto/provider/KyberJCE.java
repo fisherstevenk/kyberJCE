@@ -16,7 +16,7 @@ import static sun.security.util.SecurityConstants.PROVIDER_VER;
  * Version 1.0 Compiled with Java 13 for Android compatibility.
  * Version 2.0 Compiled with Java 18.
  *
- * @author Steven K Fisher <fisherstevenk@gmail.com>
+ * @author Steven K Fisher <swiftcryptollc@gmail.com>
  */
 public final class KyberJCE extends Provider {
 

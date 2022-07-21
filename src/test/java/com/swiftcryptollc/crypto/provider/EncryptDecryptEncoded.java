@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  * Test the to/from byte array functions for the KyberEncrypted and
  * KyberDecrypted classes
  *
- * @author Steven K Fisher <fisherstevenk@gmail.com>
+ * @author Steven K Fisher <swiftcryptollc@gmail.com>
  */
 public class EncryptDecryptEncoded {
 

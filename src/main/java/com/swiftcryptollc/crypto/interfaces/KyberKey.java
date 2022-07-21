@@ -4,7 +4,7 @@ import com.swiftcryptollc.crypto.spec.KyberParameterSpec;
 
 /**
  *
- * @author Steven K Fisher <fisherstevenk@gmail.com>
+ * @author Steven K Fisher <swiftcryptollc@gmail.com>
  */
 public interface KyberKey {
 

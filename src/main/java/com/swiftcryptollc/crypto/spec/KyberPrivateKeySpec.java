@@ -6,7 +6,7 @@ import java.math.BigInteger;
 /**
  * Helper class for the Kyber Private Key
  *
- * @author Steven K Fisher <fisherstevenk@gmail.com>
+ * @author Steven K Fisher <swiftcryptollc@gmail.com>
  */
 public final class KyberPrivateKeySpec implements java.security.spec.KeySpec {
 

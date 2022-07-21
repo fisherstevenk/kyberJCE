@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the key agreement flow
  *
- * @author Steven K Fisher <fisherstevenk@gmail.com>
+ * @author Steven K Fisher <swiftcryptollc@gmail.com>
  */
 public class KeyAgreementTest {
 
