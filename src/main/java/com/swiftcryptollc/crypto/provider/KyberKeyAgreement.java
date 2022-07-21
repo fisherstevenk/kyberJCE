@@ -456,19 +456,6 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
         }
     }
 
-    /**
-     * Print a byte array on one line
-     *
-     * @param name
-     * @param array
-     */
-    public void printByteArray(String name, byte[] array) {
-        System.out.print(name + " " + array.length + " [");
-        for (int i = 0; i < array.length; ++i) {
-            System.out.print(" " + (int) (array[i] & 0xFF));
-        }
-        System.out.println("]");
-    }
 
     /**
      * Generate a key with the give kyber key size

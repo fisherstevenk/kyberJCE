@@ -27,7 +27,7 @@ final class UnpackedCipherText {
     /**
      * @param bp the bp to set
      */
-    public void setBp(short[][] bp) {
+    protected void setBp(short[][] bp) {
         this.bp = bp;
     }
 
@@ -41,7 +41,7 @@ final class UnpackedCipherText {
     /**
      * @param v the v to set
      */
-    public void setV(short[] v) {
+    protected void setV(short[] v) {
         this.v = v;
     }
 

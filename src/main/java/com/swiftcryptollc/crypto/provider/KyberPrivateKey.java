@@ -334,7 +334,7 @@ final class KyberPrivateKey implements PrivateKey, com.swiftcryptollc.crypto.int
     /**
      * @param kyberKeySize the kyberKeySize to set
      */
-    public void setKyberKeySize(KyberKeySize kyberKeySize) {
+    protected void setKyberKeySize(KyberKeySize kyberKeySize) {
         this.kyberKeySize = kyberKeySize;
     }
 }

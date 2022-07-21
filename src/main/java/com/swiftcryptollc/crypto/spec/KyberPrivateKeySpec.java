@@ -73,7 +73,7 @@ public final class KyberPrivateKeySpec implements java.security.spec.KeySpec {
     /**
      * @param kyberKeySize the kyberKeySize to set
      */
-    public void setKyberKeySize(KyberKeySize kyberKeySize) {
+    protected void setKyberKeySize(KyberKeySize kyberKeySize) {
         this.kyberKeySize = kyberKeySize;
     }
 }
