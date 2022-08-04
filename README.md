@@ -98,5 +98,8 @@ This library is available under the MIT License. The tests from the [Go](https:/
 ## Further Information
 More details about CRYSTALS and the most secure ways to use it can be found [here](https://pq-crystals.org/index.shtml)
 
+## Signing Expiration
+The signing certificates are ony valid for 5 years.  This means that the kyberJCE-2.1.1.jar certificate is only good until 2027-08-03.  After that time, you will no longer be able to import the 2.1.1 jar into the Oracle JVM.  (No one knows what will happen in 5 years, but you can import it into the OpenJDK JVM and I probably will have an updated certificate at that point as well.)
+ 
 ## Contact
 fisherstevenk@swiftcryptollc.com
