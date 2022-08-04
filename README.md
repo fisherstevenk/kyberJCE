@@ -41,7 +41,7 @@ Some minor changes were needed for this library to work with JDK 18 (version 2.0
 </project>
 ```
 
-The "builds" directory contains a compiled OpenJDK 13.0.2 version (kyberJCE-0.0.1-JDK13.jar) of this library (get OpenJDK 13 here: https://jdk.java.net/archive/ ) and a signed Oracle JDK 18 version (kyberJCE-2.1.1.jar).  Both jar files have an md5 hash file for verification.
+The "builds" directory contains a compiled OpenJDK 13.0.2 version (kyberJCE-0.0.1-JDK13.jar) of this library and a signed Oracle JDK 18 version (kyberJCE-2.1.1.jar).  Both jar files have an md5 hash file for verification.
 
 The initial creation of this code was translated from this Go implementation of [Kyber (version 3)](https://github.com/symbolicsoft/kyber-k2so).  After getting that to work, the code was modified into a JCE (unsigned).  The Diffie-Hellman OpenJDK 11 code was used as a base.
 
