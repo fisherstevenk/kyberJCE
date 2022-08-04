@@ -9,7 +9,7 @@
 
 The initial Java implementation (1.0, Java 13) was intended for Android applications. In order to use it on Android however, you need to include the sun.security.util classes in your final jar.  The Android version of java does not have them available.
 
-Some minor changes were needed for this library to work with Oracle JDK 18.  These changes are in Version 2.0.  In order to use the library in your Java 18 app, you do need modifications to your maven pom (sorry.. no gradle example).
+Some minor changes were needed for this library to work with JDK 18 (version 2.0+).  In order to use the library in your Java 18 app, you do need modifications to your maven pom (sorry.. no gradle example).
 
 *Please note, do not add the "..." to your pom file.  That's just a placeholder instead of adding a full pom file.*
 
@@ -41,14 +41,14 @@ Some minor changes were needed for this library to work with Oracle JDK 18.  The
 </project>
 ```
 
-The "builds" directory contains a compiled OpenJDK 13.0.2 version of this library (get OpenJDK 13 here: https://jdk.java.net/archive/ ) and an Oracle JDK 18 version.
+The "builds" directory contains a compiled OpenJDK 13.0.2 version (kyberJCE-0.0.1-JDK13.jar) of this library (get OpenJDK 13 here: https://jdk.java.net/archive/ ) and a signed Oracle JDK 18 version (kyberJCE-2.1.1.jar).  Both jar files have an md5 hash file for verification.
 
 The initial creation of this code was translated from this Go implementation of [Kyber (version 3)](https://github.com/symbolicsoft/kyber-k2so).  After getting that to work, the code was modified into a JCE (unsigned).  The Diffie-Hellman OpenJDK 11 code was used as a base.
 
 Kyber has three different parameter sets: 512, 768, and 1024.  Kyber-512 aims at security roughly equivalent to AES-128, Kyber-768 aims at security roughly equivalent to AES-192, and Kyber-1024 aims at security roughly equivalent to AES-256. 
 
 ## Loading the Kyber JCE
-**Because the JAR isn't signed, you cannot import it into the Oracle JDK.**  You can however import this into OpenJDK.  You will need to add these two lines to your program:
+There are a couple ways to load the Kyber JCE.  One way is to add these two lines to your program:
 
 ```bash
 Security.setProperty("crypto.policy", "unlimited");
