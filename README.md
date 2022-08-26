@@ -41,9 +41,9 @@ Some minor changes were needed for this library to work with JDK 18 (version 2.0
 </project>
 ```
 
-The "builds" directory contains a compiled OpenJDK 13.0.2 version (kyberJCE-0.0.1-JDK13.jar) of this library and a signed Oracle JDK 18 version (kyberJCE-2.1.1.jar).  Both jar files have an md5 hash file for verification.
+The "builds" directory contains a signed Oracle JDK 18 version (kyberJCE-2.1.2.jar) along with an md5 hash file for verification.
 
-The initial creation of this code was translated from this Go implementation of [Kyber (version 3)](https://github.com/symbolicsoft/kyber-k2so).  After getting that to work, the code was modified into a JCE (the JDK13 version is unsigned).  The Diffie-Hellman OpenJDK 11 code was used as a base.
+The initial creation of this code was translated from this Go implementation of [Kyber (version 3)](https://github.com/symbolicsoft/kyber-k2so).  After getting that to work, the code was modified into a JCE.  The Diffie-Hellman OpenJDK 11 code was used as a base.
 
 Kyber has three different parameter sets: 512, 768, and 1024.  Kyber-512 aims at security roughly equivalent to AES-128, Kyber-768 aims at security roughly equivalent to AES-192, and Kyber-1024 aims at security roughly equivalent to AES-256. 
 
@@ -99,7 +99,7 @@ This library is available under the MIT License. The tests from the [Go](https:/
 More details about CRYSTALS and the most secure ways to use it can be found [here](https://pq-crystals.org/index.shtml)
 
 ## Signing Expiration
-The signing certificates are ony valid for 5 years.  This means that the kyberJCE-2.1.1.jar certificate is only good until 2027-08-03.  After that time, you will no longer be able to import the 2.1.1 jar into the Oracle JVM.  (No one knows what will happen in 5 years, but you can import it into the OpenJDK JVM and I probably will have an updated certificate at that point as well.)
+The signing certificates are ony valid for 5 years.  This means that the kyberJCE-2.1.2.jar certificate is only good until 2027-08-03.  After that time, you will no longer be able to import the 2.1.2 jar into the Oracle JVM.  (No one knows what will happen in 5 years, but you can import it into the OpenJDK JVM and I probably will have an updated certificate at that point as well.)
  
 ## Contact
 fisherstevenk@swiftcryptollc.com
