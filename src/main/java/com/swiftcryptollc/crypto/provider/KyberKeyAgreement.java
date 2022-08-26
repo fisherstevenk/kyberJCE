@@ -335,26 +335,24 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
         System.arraycopy(kr, KyberParams.paramsSymBytes, subKr, 0, subKr.length);
         byte[] cmp = Indcpa.encrypt(buf, publicKey, subKr, paramsK);
         byte fail = (byte) KyberKeyUtil.constantTimeCompare(ciphertext, cmp);
-        if (fail == (byte) 0) {
-            MessageDigest md = new SHA3_256();
-            byte[] krh = md.digest(ciphertext);
-            for (int i = 0; i < KyberParams.paramsSymBytes; i++) {
-                int length = KyberParams.Kyber512SKBytes - KyberParams.paramsSymBytes + i;
-                byte[] skx = new byte[length];
-                System.arraycopy(privateKey, 0, skx, 0, length);
-                kr[i] = (byte) ((int) (kr[i] & 0xFF) ^ ((int) (fail & 0xFF) & ((int) (kr[i] & 0xFF) ^ (int) (skx[i] & 0xFF))));
-            }
-            byte[] tempBuf = new byte[KyberParams.paramsSymBytes + krh.length];
-            System.arraycopy(kr, 0, tempBuf, 0, KyberParams.paramsSymBytes);
-            System.arraycopy(krh, 0, tempBuf, KyberParams.paramsSymBytes, krh.length);
-            KeccakSponge xof = new Shake256();
-            xof.getAbsorbStream().write(tempBuf);
-            xof.getSqueezeStream().read(sharedSecretFixedLength);
-
-            return new KyberDecrypted(new KyberSecretKey(sharedSecretFixedLength, null, null), new KyberVariant(buf));
-        } else {
-            throw new IllegalArgumentException("Invalid CipherText for this Private Key!");
+        // For security purposes, removed the "if" so it behaves the same whether it
+        // worked or not.
+        MessageDigest md = new SHA3_256();
+        byte[] krh = md.digest(ciphertext);
+        for (int i = 0; i < KyberParams.paramsSymBytes; i++) {
+            int length = KyberParams.Kyber512SKBytes - KyberParams.paramsSymBytes + i;
+            byte[] skx = new byte[length];
+            System.arraycopy(privateKey, 0, skx, 0, length);
+            kr[i] = (byte) ((int) (kr[i] & 0xFF) ^ ((int) (fail & 0xFF) & ((int) (kr[i] & 0xFF) ^ (int) (skx[i] & 0xFF))));
         }
+        byte[] tempBuf = new byte[KyberParams.paramsSymBytes + krh.length];
+        System.arraycopy(kr, 0, tempBuf, 0, KyberParams.paramsSymBytes);
+        System.arraycopy(krh, 0, tempBuf, KyberParams.paramsSymBytes, krh.length);
+        KeccakSponge xof = new Shake256();
+        xof.getAbsorbStream().write(tempBuf);
+        xof.getSqueezeStream().read(sharedSecretFixedLength);
+
+        return new KyberDecrypted(new KyberSecretKey(sharedSecretFixedLength, null, null), new KyberVariant(buf));
     }
 
     /**
@@ -384,26 +382,24 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
         System.arraycopy(kr, KyberParams.paramsSymBytes, subKr, 0, subKr.length);
         byte[] cmp = Indcpa.encrypt(buf, publicKey, subKr, paramsK);
         byte fail = (byte) KyberKeyUtil.constantTimeCompare(ciphertext, cmp);
-        if (fail == (byte) 0) {
-            MessageDigest md = new SHA3_256();
-            byte[] krh = md.digest(ciphertext);
-            for (int i = 0; i < KyberParams.paramsSymBytes; i++) {
-                int length = KyberParams.Kyber768SKBytes - KyberParams.paramsSymBytes + i;
-                byte[] skx = new byte[length];
-                System.arraycopy(privateKey, 0, skx, 0, length);
-                kr[i] = (byte) ((int) (kr[i] & 0xFF) ^ ((int) (fail & 0xFF) & ((int) (kr[i] & 0xFF) ^ (int) (skx[i] & 0xFF))));
-            }
-            byte[] tempBuf = new byte[KyberParams.paramsSymBytes + krh.length];
-            System.arraycopy(kr, 0, tempBuf, 0, KyberParams.paramsSymBytes);
-            System.arraycopy(krh, 0, tempBuf, KyberParams.paramsSymBytes, krh.length);
-            KeccakSponge xof = new Shake256();
-            xof.getAbsorbStream().write(tempBuf);
-            xof.getSqueezeStream().read(sharedSecretFixedLength);
-
-            return new KyberDecrypted(new KyberSecretKey(sharedSecretFixedLength, null, null), new KyberVariant(buf));
-        } else {
-            throw new IllegalArgumentException("Invalid CipherText for this Private Key!");
+        // For security purposes, removed the "if" so it behaves the same whether it
+        // worked or not.
+        MessageDigest md = new SHA3_256();
+        byte[] krh = md.digest(ciphertext);
+        for (int i = 0; i < KyberParams.paramsSymBytes; i++) {
+            int length = KyberParams.Kyber768SKBytes - KyberParams.paramsSymBytes + i;
+            byte[] skx = new byte[length];
+            System.arraycopy(privateKey, 0, skx, 0, length);
+            kr[i] = (byte) ((int) (kr[i] & 0xFF) ^ ((int) (fail & 0xFF) & ((int) (kr[i] & 0xFF) ^ (int) (skx[i] & 0xFF))));
         }
+        byte[] tempBuf = new byte[KyberParams.paramsSymBytes + krh.length];
+        System.arraycopy(kr, 0, tempBuf, 0, KyberParams.paramsSymBytes);
+        System.arraycopy(krh, 0, tempBuf, KyberParams.paramsSymBytes, krh.length);
+        KeccakSponge xof = new Shake256();
+        xof.getAbsorbStream().write(tempBuf);
+        xof.getSqueezeStream().read(sharedSecretFixedLength);
+
+        return new KyberDecrypted(new KyberSecretKey(sharedSecretFixedLength, null, null), new KyberVariant(buf));
     }
 
     /**
@@ -434,28 +430,25 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
         System.arraycopy(kr, KyberParams.paramsSymBytes, subKr, 0, subKr.length);
         byte[] cmp = Indcpa.encrypt(buf, publicKey, subKr, paramsK);
         byte fail = (byte) KyberKeyUtil.constantTimeCompare(ciphertext, cmp);
-        if (fail == (byte) 0) {
-            MessageDigest md = new SHA3_256();
-            byte[] krh = md.digest(ciphertext);
-            for (int i = 0; i < KyberParams.paramsSymBytes; i++) {
-                int length = KyberParams.Kyber1024SKBytes - KyberParams.paramsSymBytes + i;
-                byte[] skx = new byte[length];
-                System.arraycopy(privateKey, 0, skx, 0, length);
-                kr[i] = (byte) ((int) (kr[i] & 0xFF) ^ ((int) (fail & 0xFF) & ((int) (kr[i] & 0xFF) ^ (int) (skx[i] & 0xFF))));
-            }
-            byte[] tempBuf = new byte[KyberParams.paramsSymBytes + krh.length];
-            System.arraycopy(kr, 0, tempBuf, 0, KyberParams.paramsSymBytes);
-            System.arraycopy(krh, 0, tempBuf, KyberParams.paramsSymBytes, krh.length);
-            KeccakSponge xof = new Shake256();
-            xof.getAbsorbStream().write(tempBuf);
-            xof.getSqueezeStream().read(sharedSecretFixedLength);
-
-            return new KyberDecrypted(new KyberSecretKey(sharedSecretFixedLength, null, null), new KyberVariant(buf));
-        } else {
-            throw new IllegalArgumentException("Invalid CipherText for this Private Key!");
+        // For security purposes, removed the "if" so it behaves the same whether it
+        // worked or not.
+        MessageDigest md = new SHA3_256();
+        byte[] krh = md.digest(ciphertext);
+        for (int i = 0; i < KyberParams.paramsSymBytes; i++) {
+            int length = KyberParams.Kyber1024SKBytes - KyberParams.paramsSymBytes + i;
+            byte[] skx = new byte[length];
+            System.arraycopy(privateKey, 0, skx, 0, length);
+            kr[i] = (byte) ((int) (kr[i] & 0xFF) ^ ((int) (fail & 0xFF) & ((int) (kr[i] & 0xFF) ^ (int) (skx[i] & 0xFF))));
         }
-    }
+        byte[] tempBuf = new byte[KyberParams.paramsSymBytes + krh.length];
+        System.arraycopy(kr, 0, tempBuf, 0, KyberParams.paramsSymBytes);
+        System.arraycopy(krh, 0, tempBuf, KyberParams.paramsSymBytes, krh.length);
+        KeccakSponge xof = new Shake256();
+        xof.getAbsorbStream().write(tempBuf);
+        xof.getSqueezeStream().read(sharedSecretFixedLength);
 
+        return new KyberDecrypted(new KyberSecretKey(sharedSecretFixedLength, null, null), new KyberVariant(buf));
+    }
 
     /**
      * Generate a key with the give kyber key size
