@@ -1,7 +1,7 @@
 package com.swiftcryptollc.crypto.util;
 
-import com.swiftcryptollc.crypto.provider.KyberKeySize;
 import com.swiftcryptollc.crypto.interfaces.KyberPublicKey;
+import com.swiftcryptollc.crypto.provider.KyberKeySize;
 import com.swiftcryptollc.crypto.provider.kyber.KyberParams;
 import com.swiftcryptollc.crypto.spec.KyberPublicKeySpec;
 import java.math.BigInteger;
@@ -90,7 +90,7 @@ public final class KyberKeyUtil {
      */
     public static int constantTimeCompare(byte[] x, byte[] y) {
         if (x.length != y.length) {
-            return 0;
+            return 1;
         }
 
         byte v = 0;
