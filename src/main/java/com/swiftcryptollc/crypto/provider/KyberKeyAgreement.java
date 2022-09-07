@@ -335,15 +335,12 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
         System.arraycopy(kr, KyberParams.paramsSymBytes, subKr, 0, subKr.length);
         byte[] cmp = Indcpa.encrypt(buf, publicKey, subKr, paramsK);
         byte fail = (byte) KyberKeyUtil.constantTimeCompare(ciphertext, cmp);
-        // For security purposes, removed the "if" so it behaves the same whether it
-        // worked or not.
         MessageDigest md = new SHA3_256();
         byte[] krh = md.digest(ciphertext);
+        int index = KyberParams.Kyber512SKBytes - KyberParams.paramsSymBytes;
         for (int i = 0; i < KyberParams.paramsSymBytes; i++) {
-            int length = KyberParams.Kyber512SKBytes - KyberParams.paramsSymBytes + i;
-            byte[] skx = new byte[length];
-            System.arraycopy(privateKey, 0, skx, 0, length);
-            kr[i] = (byte) ((int) (kr[i] & 0xFF) ^ ((int) (fail & 0xFF) & ((int) (kr[i] & 0xFF) ^ (int) (skx[i] & 0xFF))));
+            kr[i] = (byte) ((int) (kr[i] & 0xFF) ^ ((int) (fail & 0xFF) & ((int) (kr[i] & 0xFF) ^ (int) (privateKey[index] & 0xFF))));
+            index += 1;
         }
         byte[] tempBuf = new byte[KyberParams.paramsSymBytes + krh.length];
         System.arraycopy(kr, 0, tempBuf, 0, KyberParams.paramsSymBytes);
@@ -386,11 +383,10 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
         // worked or not.
         MessageDigest md = new SHA3_256();
         byte[] krh = md.digest(ciphertext);
+        int index = KyberParams.Kyber768SKBytes - KyberParams.paramsSymBytes;
         for (int i = 0; i < KyberParams.paramsSymBytes; i++) {
-            int length = KyberParams.Kyber768SKBytes - KyberParams.paramsSymBytes + i;
-            byte[] skx = new byte[length];
-            System.arraycopy(privateKey, 0, skx, 0, length);
-            kr[i] = (byte) ((int) (kr[i] & 0xFF) ^ ((int) (fail & 0xFF) & ((int) (kr[i] & 0xFF) ^ (int) (skx[i] & 0xFF))));
+            kr[i] = (byte) ((int) (kr[i] & 0xFF) ^ ((int) (fail & 0xFF) & ((int) (kr[i] & 0xFF) ^ (int) (privateKey[index] & 0xFF))));
+            index += 1;
         }
         byte[] tempBuf = new byte[KyberParams.paramsSymBytes + krh.length];
         System.arraycopy(kr, 0, tempBuf, 0, KyberParams.paramsSymBytes);
@@ -434,11 +430,10 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
         // worked or not.
         MessageDigest md = new SHA3_256();
         byte[] krh = md.digest(ciphertext);
+        int index = KyberParams.Kyber1024SKBytes - KyberParams.paramsSymBytes;
         for (int i = 0; i < KyberParams.paramsSymBytes; i++) {
-            int length = KyberParams.Kyber1024SKBytes - KyberParams.paramsSymBytes + i;
-            byte[] skx = new byte[length];
-            System.arraycopy(privateKey, 0, skx, 0, length);
-            kr[i] = (byte) ((int) (kr[i] & 0xFF) ^ ((int) (fail & 0xFF) & ((int) (kr[i] & 0xFF) ^ (int) (skx[i] & 0xFF))));
+            kr[i] = (byte) ((int) (kr[i] & 0xFF) ^ ((int) (fail & 0xFF) & ((int) (kr[i] & 0xFF) ^ (int) (privateKey[index] & 0xFF))));
+            index += 1;
         }
         byte[] tempBuf = new byte[KyberParams.paramsSymBytes + krh.length];
         System.arraycopy(kr, 0, tempBuf, 0, KyberParams.paramsSymBytes);
