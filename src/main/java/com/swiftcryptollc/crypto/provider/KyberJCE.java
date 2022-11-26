@@ -21,7 +21,7 @@ import static sun.security.util.SecurityConstants.PROVIDER_VER;
 public final class KyberJCE extends Provider {
 
     private static final long serialVersionUID = 387564738298475632L;
-    public static final String OID_KYBER = "1.2.840.113549.1.3.1";
+    public static final String OID_KYBER = "1.3.6.1.4.1.2.267.8";
 
     private static final String info = "KyberJCE Provider "
             + "(implements CRYSTALS Kyber)";
