@@ -30,10 +30,13 @@ public class KemTest {
             "PQCkemKAT_3168.rsp"};
         int fileIndex = 0;
         for (String rsp : rsps) {
+            InputStream inputStream = null;
+            InputStreamReader inputStreamReader = null;
             try {
-                InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("assets/" + rsp);
+                inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("assets/" + rsp);
+                inputStreamReader = new InputStreamReader(inputStream);
                 System.out.println("Processing " + rsp);
-                BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+                BufferedReader br = new BufferedReader(inputStreamReader);
                 String line = null;
                 int count = 0;
                 while ((line = br.readLine()) != null) {
@@ -129,6 +132,17 @@ public class KemTest {
             } catch (Exception ex) {
                 ex.printStackTrace();
                 fail("Exception occured during the test! [" + ex.getMessage() + "]");
+            } finally {
+            	try {
+            		if(inputStreamReader != null) {
+            			inputStreamReader.close();
+            		}
+            		if(inputStream != null) {
+            			inputStream.close();
+            		}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
             }
             /**
              * Process the last vector
