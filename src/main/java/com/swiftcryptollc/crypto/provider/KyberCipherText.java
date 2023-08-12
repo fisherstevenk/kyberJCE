@@ -2,7 +2,11 @@ package com.swiftcryptollc.crypto.provider;
 
 import com.swiftcryptollc.crypto.provider.kyber.KyberParams;
 import com.swiftcryptollc.crypto.spec.KyberParameterSpec;
+import com.swiftcryptollc.crypto.util.DerInputStream;
+import com.swiftcryptollc.crypto.util.DerOutputStream;
+import com.swiftcryptollc.crypto.util.DerValue;
 import com.swiftcryptollc.crypto.util.KyberKeyUtil;
+import com.swiftcryptollc.crypto.util.ObjectIdentifier;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,10 +17,7 @@ import java.security.KeyRep;
 import java.security.ProviderException;
 import java.security.PublicKey;
 import java.util.Objects;
-import sun.security.util.DerInputStream;
-import sun.security.util.DerOutputStream;
-import sun.security.util.DerValue;
-import sun.security.util.ObjectIdentifier;
+
 
 /**
  * A cipher text in X.509 format for the Kyber key agreement algorithm.

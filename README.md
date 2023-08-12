@@ -7,43 +7,12 @@
 
 **KYBER** is an IND-CCA2-secure key encapsulation mechanism (KEM), whose security is based on the hardness of solving the learning-with-errors (LWE) problem over module lattices.  The homepage for CRYSTALS Kyber can be found [here](https://pq-crystals.org/kyber/index.shtml) (some information from this README is pulled directly from their site).
 
-The initial Java implementation was intended for Android applications. In order to use it on Android however, you need to include the sun.security.util classes in your final jar.  The Android version of java does not have them available.
-
-Some minor changes were needed for this library to work with JDK 18 (version 2.0+).  In order to use the library in your Java 18 app, you do need modifications to your maven pom (sorry.. no gradle example).
-
-*Please note, do not add the "..." to your pom file.  That's just a placeholder instead of adding a full pom file.*
-
-```bash
-<project ...>
-....
-   <properties>
-     <!-- This property must be added -->
-     <argLine>--add-modules java.base --add-opens java.base/sun.security.util=ALL-UNNAMED</argLine>
-     ...
-   </properties>
-   <build>
-     <plugins>
-       <plugin>
-         <groupId>org.apache.maven.plugins</groupId>
-         <artifactId>maven-compiler-plugin</artifactId>
-         <version>3.10.1</version>
-         <configuration>
-           <source>18</source>
-           <target>18</target>
-           <!-- This section must be added -->
-           <compilerArgs>
-             <arg>--add-exports</arg>
-             <arg>java.base/sun.security.util=ALL-UNNAMED</arg>
-           </compilerArgs>
-         </configuration>
-       </plugin>
-...
-</project>
-```
-
 The initial creation of this code was translated from this Go implementation of [Kyber (version 3)](https://github.com/symbolicsoft/kyber-k2so).  After getting that to work, the code was modified into a JCE.  The Diffie-Hellman OpenJDK 11 code was used as a base.
 
 Kyber has three different parameter sets: 512, 768, and 1024.  Kyber-512 aims at security roughly equivalent to AES-128, Kyber-768 aims at security roughly equivalent to AES-192, and Kyber-1024 aims at security roughly equivalent to AES-256. 
+
+## Sun Libraries
+The "sun.security.\*" library requirements have been removed from version 1.1 of this library. The required "sun.security.\*" classes were copied from Java 13 and refactored into "com.swiftcryptollc.crypto.util" under the GNU General Public License version 2. Part of the refactoring was to remove unused methods and variables, and to change to new base classes where possible.
 
 ## Loading the Kyber JCE
 There are a couple ways to load the Kyber JCE.  One way is to add these two lines to your program:
