@@ -12,7 +12,7 @@ The initial creation of this code was translated from this Go implementation of 
 Kyber has three different parameter sets: 512, 768, and 1024.  Kyber-512 aims at security roughly equivalent to AES-128, Kyber-768 aims at security roughly equivalent to AES-192, and Kyber-1024 aims at security roughly equivalent to AES-256. 
 
 ## Sun Libraries
-The "sun.security.\*" library requirements have been removed from version 1.1 of this library. The required "sun.security.\*" classes were copied from Java 13 and refactored into "com.swiftcryptollc.crypto.util" under the GNU General Public License version 2. Part of the refactoring was to remove unused methods and variables, and to change to new base classes where possible.
+The "sun.security.\*" library requirements have been removed from version 3.0.0 of this library. The required "sun.security.\*" classes were copied from Java 13 and refactored into "com.swiftcryptollc.crypto.util" under the GNU General Public License version 2. Part of the refactoring was to remove unused methods and variables, and to change to new base classes where possible.
 
 ## Loading the Kyber JCE
 There are a couple ways to load the Kyber JCE.  One way is to add these two lines to your program:
