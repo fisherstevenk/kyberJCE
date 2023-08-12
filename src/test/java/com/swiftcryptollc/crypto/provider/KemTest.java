@@ -1,6 +1,7 @@
 package com.swiftcryptollc.crypto.provider;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.KeyPair;
@@ -133,16 +134,16 @@ public class KemTest {
                 ex.printStackTrace();
                 fail("Exception occured during the test! [" + ex.getMessage() + "]");
             } finally {
-            	try {
-            		if(inputStreamReader != null) {
-            			inputStreamReader.close();
-            		}
-            		if(inputStream != null) {
-            			inputStream.close();
-            		}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+                try {
+                    if (inputStreamReader != null) {
+                        inputStreamReader.close();
+                    }
+                    if (inputStream != null) {
+                        inputStream.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             /**
              * Process the last vector

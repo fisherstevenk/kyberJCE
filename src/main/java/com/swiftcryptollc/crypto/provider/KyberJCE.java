@@ -3,7 +3,6 @@ package com.swiftcryptollc.crypto.provider;
 import java.security.AccessController;
 import java.security.Provider;
 import java.security.SecureRandom;
-import static sun.security.util.SecurityConstants.PROVIDER_VER;
 
 /**
  * Java implementation of the CRYSTALS Kyber Algorithm.
@@ -45,7 +44,7 @@ public final class KyberJCE extends Provider {
     }
 
     public KyberJCE() {
-        super("KyberJCE", PROVIDER_VER, info);
+        super("KyberJCE", System.getProperty("java.specification.version"), info);
 
         AccessController.doPrivileged(new java.security.PrivilegedAction<Object>() {
             @Override
