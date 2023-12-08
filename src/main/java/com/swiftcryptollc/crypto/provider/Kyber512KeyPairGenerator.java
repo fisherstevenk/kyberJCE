@@ -1,6 +1,5 @@
 package com.swiftcryptollc.crypto.provider;
 
-import com.github.aelstad.keccakj.fips202.SHA3_256;
 import com.swiftcryptollc.crypto.provider.kyber.Indcpa;
 import com.swiftcryptollc.crypto.provider.kyber.KyberParams;
 import com.swiftcryptollc.crypto.spec.KyberParameterSpec;
@@ -75,7 +74,7 @@ public final class Kyber512KeyPairGenerator extends KeyPairGeneratorSpi {
             byte[] packedPublicKey = indcpaPKI.getPackedPublicKey();
             byte[] packedPrivateKey = indcpaPKI.getPackedPrivateKey();
             byte[] privateKeyFixedLength = new byte[KyberParams.Kyber512SKBytes];
-            MessageDigest md = new SHA3_256();
+            MessageDigest md = MessageDigest.getInstance("SHA3-256");
             byte[] encodedHash = md.digest(packedPublicKey);
             byte[] pkh = new byte[encodedHash.length];
             System.arraycopy(encodedHash, 0, pkh, 0, encodedHash.length);

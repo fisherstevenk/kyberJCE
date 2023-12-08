@@ -1,8 +1,6 @@
 package com.swiftcryptollc.crypto.provider;
 
 import com.github.aelstad.keccakj.core.KeccakSponge;
-import com.github.aelstad.keccakj.fips202.SHA3_256;
-import com.github.aelstad.keccakj.fips202.SHA3_512;
 import com.github.aelstad.keccakj.fips202.Shake256;
 import com.swiftcryptollc.crypto.provider.kyber.Indcpa;
 import com.swiftcryptollc.crypto.provider.kyber.KyberParams;
@@ -190,7 +188,11 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
                 return null;
             }
         } else if (key instanceof com.swiftcryptollc.crypto.provider.KyberCipherText) {
-            return decrypt(kyberKeySize, (KyberCipherText) key);
+            try {
+                return decrypt(kyberKeySize, (KyberCipherText) key);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         }
         throw new InvalidKeyException("Expected a KyberPublicKey or KyberCipherText");
     }
@@ -296,7 +298,7 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
      * @param cipherText
      * @return
      */
-    public KyberDecrypted decrypt(KyberKeySize kyberKeySize, KyberCipherText cipherText) {
+    public KyberDecrypted decrypt(KyberKeySize kyberKeySize, KyberCipherText cipherText) throws NoSuchAlgorithmException {
         switch (kyberKeySize) {
             case KEY_512:
                 return this.decrypt512(cipherText);
@@ -314,7 +316,7 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
      * @param kyberCiphertext
      * @return
      */
-    private KyberDecrypted decrypt512(KyberCipherText kyberCiphertext) {
+    private KyberDecrypted decrypt512(KyberCipherText kyberCiphertext) throws NoSuchAlgorithmException {
         byte[] ciphertext = kyberCiphertext.getC();
         byte[] privateKey = this.x;
         int paramsK = 2;
@@ -329,13 +331,13 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
         byte[] newBuf = new byte[buf.length + KyberParams.paramsSymBytes];
         System.arraycopy(buf, 0, newBuf, 0, buf.length);
         System.arraycopy(privateKey, ski, newBuf, buf.length, KyberParams.paramsSymBytes);
-        MessageDigest md512 = new SHA3_512();
+        MessageDigest md512 = MessageDigest.getInstance("SHA3-512");
         byte[] kr = md512.digest(newBuf);
         byte[] subKr = new byte[kr.length - KyberParams.paramsSymBytes];
         System.arraycopy(kr, KyberParams.paramsSymBytes, subKr, 0, subKr.length);
         byte[] cmp = Indcpa.encrypt(buf, publicKey, subKr, paramsK);
         byte fail = (byte) KyberKeyUtil.constantTimeCompare(ciphertext, cmp);
-        MessageDigest md = new SHA3_256();
+        MessageDigest md = MessageDigest.getInstance("SHA3-256");
         byte[] krh = md.digest(ciphertext);
         int index = KyberParams.Kyber512SKBytes - KyberParams.paramsSymBytes;
         for (int i = 0; i < KyberParams.paramsSymBytes; i++) {
@@ -358,7 +360,7 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
      * @param kyberCiphertext
      * @return
      */
-    private KyberDecrypted decrypt768(KyberCipherText kyberCiphertext) {
+    private KyberDecrypted decrypt768(KyberCipherText kyberCiphertext) throws NoSuchAlgorithmException {
         byte[] ciphertext = kyberCiphertext.getC();
         byte[] privateKey = this.x;
         int paramsK = 3;
@@ -373,7 +375,7 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
         byte[] newBuf = new byte[buf.length + KyberParams.paramsSymBytes];
         System.arraycopy(buf, 0, newBuf, 0, buf.length);
         System.arraycopy(privateKey, ski, newBuf, buf.length, KyberParams.paramsSymBytes);
-        MessageDigest md512 = new SHA3_512();
+        MessageDigest md512 = MessageDigest.getInstance("SHA3-512");
         byte[] kr = md512.digest(newBuf);
         byte[] subKr = new byte[kr.length - KyberParams.paramsSymBytes];
         System.arraycopy(kr, KyberParams.paramsSymBytes, subKr, 0, subKr.length);
@@ -381,7 +383,7 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
         byte fail = (byte) KyberKeyUtil.constantTimeCompare(ciphertext, cmp);
         // For security purposes, removed the "if" so it behaves the same whether it
         // worked or not.
-        MessageDigest md = new SHA3_256();
+        MessageDigest md = MessageDigest.getInstance("SHA3-256");
         byte[] krh = md.digest(ciphertext);
         int index = KyberParams.Kyber768SKBytes - KyberParams.paramsSymBytes;
         for (int i = 0; i < KyberParams.paramsSymBytes; i++) {
@@ -405,7 +407,7 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
      * @return
      */
     private KyberDecrypted decrypt1024(KyberCipherText kyberCiphertext)
-            throws IllegalArgumentException {
+            throws IllegalArgumentException, NoSuchAlgorithmException {
         byte[] ciphertext = kyberCiphertext.getC();
         byte[] privateKey = this.x;
         int paramsK = 4;
@@ -420,7 +422,7 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
         byte[] newBuf = new byte[buf.length + KyberParams.paramsSymBytes];
         System.arraycopy(buf, 0, newBuf, 0, buf.length);
         System.arraycopy(privateKey, ski, newBuf, buf.length, KyberParams.paramsSymBytes);
-        MessageDigest md512 = new SHA3_512();
+        MessageDigest md512 = MessageDigest.getInstance("SHA3-512");
         byte[] kr = md512.digest(newBuf);
         byte[] subKr = new byte[kr.length - KyberParams.paramsSymBytes];
         System.arraycopy(kr, KyberParams.paramsSymBytes, subKr, 0, subKr.length);
@@ -428,7 +430,7 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
         byte fail = (byte) KyberKeyUtil.constantTimeCompare(ciphertext, cmp);
         // For security purposes, removed the "if" so it behaves the same whether it
         // worked or not.
-        MessageDigest md = new SHA3_256();
+        MessageDigest md = MessageDigest.getInstance("SHA3-256");
         byte[] krh = md.digest(ciphertext);
         int index = KyberParams.Kyber1024SKBytes - KyberParams.paramsSymBytes;
         for (int i = 0; i < KyberParams.paramsSymBytes; i++) {
@@ -475,40 +477,35 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
      * @param kyberPublicKey
      * @return KyberEncrypted
      */
-    private KyberEncrypted encrypt512(byte[] variant, byte[] publicKey) throws IllegalArgumentException {
+    private KyberEncrypted encrypt512(byte[] variant, byte[] publicKey) throws IllegalArgumentException, InvalidKeyException, NoSuchAlgorithmException {
         variant = verifyVariant(variant);
         KyberEncrypted msg = new KyberEncrypted();
         int paramsK = 2;
         //   byte[] ciphertextFixedLength = new byte[KyberParams.Kyber512CTBytes];
         //  byte[] sharedSecretFixedLength = new byte[KyberParams.KyberSSBytes];
-        try {
-            byte[] sharedSecret = new byte[KyberParams.paramsSymBytes];
-            MessageDigest md = new SHA3_256();
-            byte[] buf1 = md.digest(variant);
-            byte[] buf2 = md.digest(publicKey);
-            byte[] buf3 = new byte[buf1.length + buf2.length];
-            System.arraycopy(buf1, 0, buf3, 0, buf1.length);
-            System.arraycopy(buf2, 0, buf3, buf1.length, buf2.length);
-            MessageDigest md512 = new SHA3_512();
-            byte[] kr = md512.digest(buf3);
-            byte[] subKr = new byte[kr.length - KyberParams.paramsSymBytes];
-            System.arraycopy(kr, KyberParams.paramsSymBytes, subKr, 0, subKr.length);
-            byte[] ciphertext = Indcpa.encrypt(buf1, publicKey, subKr, paramsK);
-            byte[] krc = md.digest(ciphertext);
-            byte[] newKr = new byte[KyberParams.paramsSymBytes + krc.length];
-            System.arraycopy(kr, 0, newKr, 0, KyberParams.paramsSymBytes);
-            System.arraycopy(krc, 0, newKr, KyberParams.paramsSymBytes, krc.length);
-            KeccakSponge xof = new Shake256();
-            xof.getAbsorbStream().write(newKr);
-            xof.getSqueezeStream().read(sharedSecret);
-            //     System.arraycopy(ciphertext, 0, ciphertextFixedLength, 0, ciphertext.length);
-            //   System.arraycopy(sharedSecret, 0, sharedSecretFixedLength, 0, sharedSecret.length);
-            msg.setCipherText(new KyberCipherText(ciphertext, null, null));
-            msg.setSecretKey(new KyberSecretKey(sharedSecret, null, null));
-        } catch (Exception ex) {
-            System.out.println("KemEncrypt512 Exception! [" + ex.getMessage() + "]");
-            ex.printStackTrace();
-        }
+        byte[] sharedSecret = new byte[KyberParams.paramsSymBytes];
+        MessageDigest md = MessageDigest.getInstance("SHA3-256");
+        byte[] buf1 = md.digest(variant);
+        byte[] buf2 = md.digest(publicKey);
+        byte[] buf3 = new byte[buf1.length + buf2.length];
+        System.arraycopy(buf1, 0, buf3, 0, buf1.length);
+        System.arraycopy(buf2, 0, buf3, buf1.length, buf2.length);
+        MessageDigest md512 = MessageDigest.getInstance("SHA3-512");
+        byte[] kr = md512.digest(buf3);
+        byte[] subKr = new byte[kr.length - KyberParams.paramsSymBytes];
+        System.arraycopy(kr, KyberParams.paramsSymBytes, subKr, 0, subKr.length);
+        byte[] ciphertext = Indcpa.encrypt(buf1, publicKey, subKr, paramsK);
+        byte[] krc = md.digest(ciphertext);
+        byte[] newKr = new byte[KyberParams.paramsSymBytes + krc.length];
+        System.arraycopy(kr, 0, newKr, 0, KyberParams.paramsSymBytes);
+        System.arraycopy(krc, 0, newKr, KyberParams.paramsSymBytes, krc.length);
+        KeccakSponge xof = new Shake256();
+        xof.getAbsorbStream().write(newKr);
+        xof.getSqueezeStream().read(sharedSecret);
+        //     System.arraycopy(ciphertext, 0, ciphertextFixedLength, 0, ciphertext.length);
+        //   System.arraycopy(sharedSecret, 0, sharedSecretFixedLength, 0, sharedSecret.length);
+        msg.setCipherText(new KyberCipherText(ciphertext, null, null));
+        msg.setSecretKey(new KyberSecretKey(sharedSecret, null, null));
         return msg;
     }
 
@@ -519,40 +516,35 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
      * @param kyberPublicKey
      * @return KyberEncrypted
      */
-    private KyberEncrypted encrypt768(byte[] variant, byte[] publicKey) {
+    private KyberEncrypted encrypt768(byte[] variant, byte[] publicKey) throws NoSuchAlgorithmException, InvalidKeyException {
         variant = verifyVariant(variant);
         KyberEncrypted msg = new KyberEncrypted();
         int paramsK = 3;
         //byte[] ciphertextFixedLength = new byte[KyberParams.Kyber768CTBytes];
         // byte[] sharedSecretFixedLength = new byte[KyberParams.KyberSSBytes];
-        try {
-            byte[] sharedSecret = new byte[KyberParams.paramsSymBytes];
-            MessageDigest md = new SHA3_256();
-            byte[] buf1 = md.digest(variant);
-            byte[] buf2 = md.digest(publicKey);
-            byte[] buf3 = new byte[buf1.length + buf2.length];
-            System.arraycopy(buf1, 0, buf3, 0, buf1.length);
-            System.arraycopy(buf2, 0, buf3, buf1.length, buf2.length);
-            MessageDigest md512 = new SHA3_512();
-            byte[] kr = md512.digest(buf3);
-            byte[] subKr = new byte[kr.length - KyberParams.paramsSymBytes];
-            System.arraycopy(kr, KyberParams.paramsSymBytes, subKr, 0, subKr.length);
-            byte[] ciphertext = Indcpa.encrypt(buf1, publicKey, subKr, paramsK);
-            byte[] krc = md.digest(ciphertext);
-            byte[] newKr = new byte[KyberParams.paramsSymBytes + krc.length];
-            System.arraycopy(kr, 0, newKr, 0, KyberParams.paramsSymBytes);
-            System.arraycopy(krc, 0, newKr, KyberParams.paramsSymBytes, krc.length);
-            KeccakSponge xof = new Shake256();
-            xof.getAbsorbStream().write(newKr);
-            xof.getSqueezeStream().read(sharedSecret);
-            //      System.arraycopy(ciphertext, 0, ciphertextFixedLength, 0, ciphertext.length);
-            //    System.arraycopy(sharedSecret, 0, sharedSecretFixedLength, 0, sharedSecret.length);
-            msg.setCipherText(new KyberCipherText(ciphertext, null, null));
-            msg.setSecretKey(new KyberSecretKey(sharedSecret, null, null));
-        } catch (Exception ex) {
-            System.out.println("KemEncrypt768 Exception! [" + ex.getMessage() + "]");
-            ex.printStackTrace();
-        }
+        byte[] sharedSecret = new byte[KyberParams.paramsSymBytes];
+        MessageDigest md = MessageDigest.getInstance("SHA3-256");
+        byte[] buf1 = md.digest(variant);
+        byte[] buf2 = md.digest(publicKey);
+        byte[] buf3 = new byte[buf1.length + buf2.length];
+        System.arraycopy(buf1, 0, buf3, 0, buf1.length);
+        System.arraycopy(buf2, 0, buf3, buf1.length, buf2.length);
+        MessageDigest md512 = MessageDigest.getInstance("SHA3-512");
+        byte[] kr = md512.digest(buf3);
+        byte[] subKr = new byte[kr.length - KyberParams.paramsSymBytes];
+        System.arraycopy(kr, KyberParams.paramsSymBytes, subKr, 0, subKr.length);
+        byte[] ciphertext = Indcpa.encrypt(buf1, publicKey, subKr, paramsK);
+        byte[] krc = md.digest(ciphertext);
+        byte[] newKr = new byte[KyberParams.paramsSymBytes + krc.length];
+        System.arraycopy(kr, 0, newKr, 0, KyberParams.paramsSymBytes);
+        System.arraycopy(krc, 0, newKr, KyberParams.paramsSymBytes, krc.length);
+        KeccakSponge xof = new Shake256();
+        xof.getAbsorbStream().write(newKr);
+        xof.getSqueezeStream().read(sharedSecret);
+        //      System.arraycopy(ciphertext, 0, ciphertextFixedLength, 0, ciphertext.length);
+        //    System.arraycopy(sharedSecret, 0, sharedSecretFixedLength, 0, sharedSecret.length);
+        msg.setCipherText(new KyberCipherText(ciphertext, null, null));
+        msg.setSecretKey(new KyberSecretKey(sharedSecret, null, null));
         return msg;
     }
 
@@ -563,40 +555,35 @@ public final class KyberKeyAgreement extends KeyAgreementSpi {
      * @param kyberPublicKey
      * @return KyberEncrypted
      */
-    private KyberEncrypted encrypt1024(byte[] variant, byte[] publicKey) {
+    private KyberEncrypted encrypt1024(byte[] variant, byte[] publicKey) throws NoSuchAlgorithmException, InvalidKeyException {
         variant = verifyVariant(variant);
         KyberEncrypted msg = new KyberEncrypted();
         int paramsK = 4;
         //    byte[] ciphertextFixedLength = new byte[KyberParams.Kyber1024CTBytes];
         //  byte[] sharedSecretFixedLength = new byte[KyberParams.KyberSSBytes];
-        try {
-            byte[] sharedSecret = new byte[KyberParams.paramsSymBytes];
-            MessageDigest md = new SHA3_256();
-            byte[] buf1 = md.digest(variant);
-            byte[] buf2 = md.digest(publicKey);
-            byte[] buf3 = new byte[buf1.length + buf2.length];
-            System.arraycopy(buf1, 0, buf3, 0, buf1.length);
-            System.arraycopy(buf2, 0, buf3, buf1.length, buf2.length);
-            MessageDigest md512 = new SHA3_512();
-            byte[] kr = md512.digest(buf3);
-            byte[] subKr = new byte[kr.length - KyberParams.paramsSymBytes];
-            System.arraycopy(kr, KyberParams.paramsSymBytes, subKr, 0, subKr.length);
-            byte[] ciphertext = Indcpa.encrypt(buf1, publicKey, subKr, paramsK);
-            byte[] krc = md.digest(ciphertext);
-            byte[] newKr = new byte[KyberParams.paramsSymBytes + krc.length];
-            System.arraycopy(kr, 0, newKr, 0, KyberParams.paramsSymBytes);
-            System.arraycopy(krc, 0, newKr, KyberParams.paramsSymBytes, krc.length);
-            KeccakSponge xof = new Shake256();
-            xof.getAbsorbStream().write(newKr);
-            xof.getSqueezeStream().read(sharedSecret);
-            //       System.arraycopy(ciphertext, 0, ciphertextFixedLength, 0, ciphertext.length);
-            //     System.arraycopy(sharedSecret, 0, sharedSecretFixedLength, 0, sharedSecret.length);
-            msg.setCipherText(new KyberCipherText(ciphertext, null, null));
-            msg.setSecretKey(new KyberSecretKey(sharedSecret, null, null));
-        } catch (Exception ex) {
-            System.out.println("KemEncrypt1024 Exception! [" + ex.getMessage() + "]");
-            ex.printStackTrace();
-        }
+        byte[] sharedSecret = new byte[KyberParams.paramsSymBytes];
+        MessageDigest md = MessageDigest.getInstance("SHA3-256");
+        byte[] buf1 = md.digest(variant);
+        byte[] buf2 = md.digest(publicKey);
+        byte[] buf3 = new byte[buf1.length + buf2.length];
+        System.arraycopy(buf1, 0, buf3, 0, buf1.length);
+        System.arraycopy(buf2, 0, buf3, buf1.length, buf2.length);
+        MessageDigest md512 = MessageDigest.getInstance("SHA3-512");
+        byte[] kr = md512.digest(buf3);
+        byte[] subKr = new byte[kr.length - KyberParams.paramsSymBytes];
+        System.arraycopy(kr, KyberParams.paramsSymBytes, subKr, 0, subKr.length);
+        byte[] ciphertext = Indcpa.encrypt(buf1, publicKey, subKr, paramsK);
+        byte[] krc = md.digest(ciphertext);
+        byte[] newKr = new byte[KyberParams.paramsSymBytes + krc.length];
+        System.arraycopy(kr, 0, newKr, 0, KyberParams.paramsSymBytes);
+        System.arraycopy(krc, 0, newKr, KyberParams.paramsSymBytes, krc.length);
+        KeccakSponge xof = new Shake256();
+        xof.getAbsorbStream().write(newKr);
+        xof.getSqueezeStream().read(sharedSecret);
+        //       System.arraycopy(ciphertext, 0, ciphertextFixedLength, 0, ciphertext.length);
+        //     System.arraycopy(sharedSecret, 0, sharedSecretFixedLength, 0, sharedSecret.length);
+        msg.setCipherText(new KyberCipherText(ciphertext, null, null));
+        msg.setSecretKey(new KyberSecretKey(sharedSecret, null, null));
         return msg;
     }
 

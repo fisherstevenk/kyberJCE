@@ -1,7 +1,6 @@
 package com.swiftcryptollc.crypto.provider.kyber;
 
 import com.github.aelstad.keccakj.core.KeccakSponge;
-import com.github.aelstad.keccakj.fips202.SHA3_512;
 import com.github.aelstad.keccakj.fips202.Shake128;
 import com.github.aelstad.keccakj.fips202.Shake256;
 import com.swiftcryptollc.crypto.provider.KyberPackedPKI;
@@ -257,7 +256,7 @@ public final class Indcpa {
             byte[] publicSeed = new byte[KyberParams.paramsSymBytes];
             byte[] noiseSeed = new byte[KyberParams.paramsSymBytes];
 
-            MessageDigest h = new SHA3_512();
+            MessageDigest h = MessageDigest.getInstance("SHA3-512");
             SecureRandom sr = SecureRandom.getInstanceStrong();
             sr.nextBytes(publicSeed);
             byte[] fullSeed = h.digest(publicSeed);
